@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallerFinal_PradoVera", "TallerFinal_PradoVera\TallerFinal_PradoVera.csproj", "{A17EE87B-3891-49CB-86A9-8DF460241219}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autoservicio", "TallerFinal_PradoVera\Autoservicio.csproj", "{A17EE87B-3891-49CB-86A9-8DF460241219}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
