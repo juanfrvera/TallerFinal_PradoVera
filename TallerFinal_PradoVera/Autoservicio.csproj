@@ -47,6 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controlador.cs" />
+    <Compile Include="DAL\IO\ClienteDTO.cs" />
+    <Compile Include="DAL\IO\MovimientoDTO.cs" />
+    <Compile Include="DAL\IO\OperacionDTO.cs" />
+    <Compile Include="DAL\IO\ProductoDTO.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +82,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DAL\" />
     <Folder Include="Dominio\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
