@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autoservicio.IO;
 
 namespace TallerFinal_PradoVera
 {
     class Controlador
     {
-        private Adaptador iAdaptador;
+        private IServicios iAdaptador;
 
-        public ClienteDTO Login(String pDni, short pClaveHomeBanking)
+        public ClienteDTO Login(String pDni, String pClave)
         {
-            try
-            iAdaptador.ValidarCliente()
+            return iAdaptador.ValidarCliente(pDni, pClave);
         }
     }
 }
