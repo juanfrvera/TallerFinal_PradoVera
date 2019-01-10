@@ -75,7 +75,7 @@ namespace TallerFinal_PradoVera
                         return dTO;
                     }
                     else
-                        throw new NullReferenceException();
+                        throw new DAL.Excepciones.ClienteNoEncontrado();
                 }
             }
             catch (WebException ex)

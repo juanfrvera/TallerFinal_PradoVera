@@ -51,21 +51,40 @@
   <ItemGroup>
     <Compile Include="Adaptador.cs" />
     <Compile Include="Controlador.cs" />
+    <Compile Include="DAL\Excepciones.cs" />
     <Compile Include="DAL\IO\ClienteDTO.cs" />
     <Compile Include="DAL\IO\MovimientoDTO.cs" />
     <Compile Include="DAL\IO\OperacionDTO.cs" />
     <Compile Include="DAL\IO\ProductoDTO.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="InterfazUsuario\BlanqueoPIN.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="InterfazUsuario\BlanqueoPIN.Designer.cs">
+      <DependentUpon>BlanqueoPIN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InterfazUsuario\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InterfazUsuario\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InterfazUsuario\Operaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InterfazUsuario\Operaciones.Designer.cs">
+      <DependentUpon>Operaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="IServicios.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="InterfazUsuario\BlanqueoPIN.resx">
+      <DependentUpon>BlanqueoPIN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InterfazUsuario\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InterfazUsuario\Operaciones.resx">
+      <DependentUpon>Operaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

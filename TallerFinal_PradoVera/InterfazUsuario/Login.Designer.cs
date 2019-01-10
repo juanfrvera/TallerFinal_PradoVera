@@ -1,6 +1,6 @@
 ﻿namespace TallerFinal_PradoVera
 {
-    partial class Form1
+    partial class Login
     {
         /// <summary>
         /// Required designer variable.
@@ -55,6 +55,7 @@
             // 
             // label2
             // 
+            this.label2.AccessibleDescription = "Clave de homebanking";
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(53, 168);
@@ -83,7 +84,7 @@
             this.buttonIngresar.UseVisualStyleBackColor = true;
             this.buttonIngresar.Click += new System.EventHandler(this.buttonIngresar_Click);
             // 
-            // Form1
+            // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -93,8 +94,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxDNI);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
-            this.Text = "Ingresar";
+            this.Name = "Login";
+            this.Text = "Identifiación de Cliente";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -11,7 +11,10 @@ namespace TallerFinal_PradoVera
     {
         private IServicios iAdaptador;
 
-
+        public Controlador()
+        {
+            iAdaptador = new Adaptador();
+        }
         /// <summary>
         /// Si el cliente no es encontrado se arroja una NullReferenceException
         /// Tambien puede haber una WebException si hay problemas al conectar con el servidor
@@ -23,5 +26,12 @@ namespace TallerFinal_PradoVera
         {
             return iAdaptador.ValidarCliente(pDni, pClave);
         }
+        #region Operaciones de usuario validado
+        public void BlanqueoDePin()
+        {
+
+        }
+
+        #endregion
     }
 }

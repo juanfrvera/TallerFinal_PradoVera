@@ -8,18 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TallerFinal_PradoVera
+namespace TallerFinal_PradoVera.InterfazUsuario
 {
-    public partial class Form1 : Form
+    public partial class BlanqueoPIN : Form
     {
-        public Form1()
+        public BlanqueoPIN()
         {
             InitializeComponent();
+            this.CenterToScreen();
         }
 
-        private void buttonIngresar_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            Program.Login(textBoxDNI.Text,textBoxClave.Text);
+            this.Hide();
         }
     }
 }
