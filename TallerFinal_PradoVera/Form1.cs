@@ -16,5 +16,10 @@ namespace TallerFinal_PradoVera
         {
             InitializeComponent();
         }
+
+        private void buttonIngresar_Click(object sender, EventArgs e)
+        {
+            Program.Login(textBoxDNI.Text,textBoxClave.Text);
+        }
     }
 }
