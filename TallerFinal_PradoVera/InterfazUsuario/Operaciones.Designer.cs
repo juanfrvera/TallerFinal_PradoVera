@@ -32,6 +32,7 @@
             this.buttonBlanqueo = new System.Windows.Forms.Button();
             this.buttonCerrarSesion = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelSinTarjetas = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelNombre
@@ -74,12 +75,24 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Operaciones disponibles";
             // 
+            // labelSinTarjetas
+            // 
+            this.labelSinTarjetas.AutoSize = true;
+            this.labelSinTarjetas.ForeColor = System.Drawing.Color.Maroon;
+            this.labelSinTarjetas.Location = new System.Drawing.Point(222, 100);
+            this.labelSinTarjetas.Name = "labelSinTarjetas";
+            this.labelSinTarjetas.Size = new System.Drawing.Size(168, 13);
+            this.labelSinTarjetas.TabIndex = 4;
+            this.labelSinTarjetas.Text = "Usted no tiene tarjetas disponibles";
+            this.labelSinTarjetas.Visible = false;
+            // 
             // Operaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 461);
             this.ControlBox = false;
+            this.Controls.Add(this.labelSinTarjetas);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCerrarSesion);
             this.Controls.Add(this.buttonBlanqueo);
@@ -97,5 +110,6 @@
         private System.Windows.Forms.Button buttonBlanqueo;
         private System.Windows.Forms.Button buttonCerrarSesion;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelSinTarjetas;
     }
 }

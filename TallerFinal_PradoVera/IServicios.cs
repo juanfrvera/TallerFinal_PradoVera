@@ -11,7 +11,7 @@ namespace TallerFinal_PradoVera
     {
         ClienteDTO ValidarCliente(String pDni, String pClave);
         IList<ProductoDTO> ObtenerProductos(String pDni);
-        bool BlanquearPin(String pNumeroTarjeta);
+        void BlanquearPin(String pNumeroTarjeta);
         double SaldoCC(String pDni);
         IList<MovimientoDTO> UltimosMovimientos(String pDni);
     }

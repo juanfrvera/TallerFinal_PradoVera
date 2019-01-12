@@ -2,7 +2,7 @@
 
 namespace Autoservicio.IO
 {
-    internal struct ProductoDTO
+    public struct ProductoDTO
     {
         private String numero;
 

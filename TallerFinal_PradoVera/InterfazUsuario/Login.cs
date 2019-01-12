@@ -12,10 +12,20 @@ namespace TallerFinal_PradoVera
 {
     public partial class Login : Form
     {
+        private ToolTip toolTipClave;
         public Login()
         {
             InitializeComponent();
             this.CenterToScreen();
+        }
+
+        private void ClaveToolTip(object sender, EventArgs e)
+        {
+            if (toolTipClave == null)
+            {
+                toolTipClave = new ToolTip();
+            }
+            toolTipClave.Show("Clave de HomeBanking", (Control)sender);
         }
 
         private void buttonIngresar_Click(object sender, EventArgs e)
@@ -25,6 +35,12 @@ namespace TallerFinal_PradoVera
                 Program.Login(textBoxDNI.Text, textBoxClave.Text);
                 this.Hide();//Se cierra pues no hubo excepcion
                 //Se usa Hide() porque al usar Close() y no haber otro Form abierto, se cierra la app
+                //Y ademas volveremos a abrir esta ventana al cerrar sesion
+
+
+                //Se limpian los campos para posterior reuso
+                textBoxDNI.Text = "";
+                textBoxClave.Text = "";
             }
             catch (DAL.Excepciones.ClienteNoEncontrado)
             {

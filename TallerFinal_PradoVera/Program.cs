@@ -10,7 +10,7 @@ namespace TallerFinal_PradoVera
     static class Program
     {
         private static Controlador controlador;
-        private static string dniCliente;
+        private static Login login;//Guardamos la referencia para luego abrirlo al cerrar sesion
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -21,7 +21,8 @@ namespace TallerFinal_PradoVera
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            login = new Login();
+            Application.Run(login);
         }
 
         public static void Login(string pDni, string pClave)
@@ -29,15 +30,32 @@ namespace TallerFinal_PradoVera
             try
             {
                 ClienteDTO cliente = controlador.Login(pDni, pClave);
-                dniCliente = pDni;//Si llegamos a este punto, no hubo una excepcion anteriormente
                 //Crea la ventana y la muestra pero no guarda una referencia hacia ella
                 (new InterfazUsuario.Operaciones(cliente.Nombre)).Show();
             }
             catch (DAL.Excepciones.ClienteNoEncontrado)
             {
-                dniCliente = "";
                 throw;
             }
+        }
+        public static IList<ProductoDTO> ObtenerProductos()
+        {
+            return controlador.ObtenerProductos();
+        }
+
+        public static void BlanquearPin(string numeroTarjeta)
+        {
+            controlador.BlanquearPin(numeroTarjeta);
+        }
+
+
+        /// <summary>
+        /// Cierra la sesion de un cliente y abre la ventana 
+        /// de Login para que uno nuevo pueda entrar
+        /// </summary>
+        public static void CerrarSesion()
+        {
+            login.Show();
         }
     }
 }
