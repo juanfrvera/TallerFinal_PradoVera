@@ -69,9 +69,10 @@ namespace TallerFinal_PradoVera.InterfazUsuario
                 MessageBox.Show("El PIN de la tarjeta " + productos[tarjetaSeleccionada].Nombre + " ha sido blanqueado.");
                 this.Hide();
             }
-            catch (DAL.Excepciones.ErrorAlBlanquearPin)
+            catch (DAL.Excepciones.ErrorAlBlanquearPin exc)
             {
-                MessageBox.Show("Ha ocurrido un error al intentar blanquear el PIN, por favor llame a un operador.");
+                MessageBox.Show("Ha ocurrido un error al intentar blanquear el PIN, por favor llame a un operador."+
+                    Environment.NewLine+"Descripción de error: "+exc.descripcion);
             }
             catch (Exception)
             {

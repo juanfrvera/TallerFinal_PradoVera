@@ -105,11 +105,10 @@ namespace TallerFinal_PradoVera
         {
             string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/product-reset?number=" + pNumeroTarjeta;
             dynamic response = GetResponse(url);
-
             if (response.Count >= 1)
             {
                 if (response[0].response.error != "0")
-                    throw new DAL.Excepciones.ErrorAlBlanquearPin(response[0].response.error_description);
+                    throw new DAL.Excepciones.ErrorAlBlanquearPin(response[0].response.error-description);
             }
             else
                 throw new DAL.Excepciones.ErrorAlBlanquearPin("Error irrecuperable");

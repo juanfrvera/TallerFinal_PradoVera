@@ -47,7 +47,10 @@ namespace TallerFinal_PradoVera
         {
             controlador.BlanquearPin(numeroTarjeta);
         }
-
+        public static int SaldoCC()
+        {
+            return 0;
+        }
 
         /// <summary>
         /// Cierra la sesion de un cliente y abre la ventana 

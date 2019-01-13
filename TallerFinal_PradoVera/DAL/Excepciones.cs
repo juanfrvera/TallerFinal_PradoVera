@@ -19,7 +19,10 @@ namespace TallerFinal_PradoVera.DAL
         }
         public class ErrorAlBlanquearPin : Exception
         {
-            public ErrorAlBlanquearPin(string descripcion) : base("Error al blanquear pin, descripción: " + descripcion) { }
+            public string descripcion;
+            public ErrorAlBlanquearPin(string descripcion) : base("Error al blanquear pin, descripción: " + descripcion) {
+                this.descripcion = descripcion;
+            }
         }
     }
 }
