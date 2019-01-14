@@ -47,11 +47,14 @@ namespace TallerFinal_PradoVera
         {
             controlador.BlanquearPin(numeroTarjeta);
         }
-        public static int SaldoCC()
+        public static double SaldoCC()
         {
-            return 0;
+            return controlador.SaldoCC();
         }
-
+        public static IList<MovimientoDTO> UltimosMovimientos()
+        {
+            return controlador.UltimosMovimientos();
+        }
         /// <summary>
         /// Cierra la sesion de un cliente y abre la ventana 
         /// de Login para que uno nuevo pueda entrar

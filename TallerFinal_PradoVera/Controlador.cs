@@ -10,7 +10,7 @@ namespace TallerFinal_PradoVera
     class Controlador
     {
         private IServicios iAdaptador;
-        private string dniActual;
+        private string iDNIActual;
 
         public Controlador()
         {
@@ -25,19 +25,30 @@ namespace TallerFinal_PradoVera
         /// <returns></returns>
         public ClienteDTO Login(String pDni, String pClave)
         {
-            dniActual = pDni;
+            iDNIActual = pDni;
             return iAdaptador.ValidarCliente(pDni, pClave);
         }
         public IList<ProductoDTO> ObtenerProductos()
         {
-            return iAdaptador.ObtenerProductos(dniActual);
+            return iAdaptador.ObtenerProductos(iDNIActual);
         }
         #region Operaciones de usuario validado
         public void BlanquearPin(string numeroTarjeta)
         {
             iAdaptador.BlanquearPin(numeroTarjeta);
         }
-
+        /// <summary>
+        /// Devuelve el saldo de la cuenta corriente del cliente actual
+        /// </summary>
+        /// <returns></returns>
+        public double SaldoCC()
+        {
+            return iAdaptador.SaldoCC(iDNIActual);
+        }
+        public IList<MovimientoDTO> UltimosMovimientos()
+        {
+            return iAdaptador.UltimosMovimientos(iDNIActual);
+        }
         #endregion
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Autoservicio.IO
 {
-    internal struct MovimientoDTO
+    public struct MovimientoDTO
     {
 
         private DateTime fecha;

@@ -40,7 +40,7 @@ namespace TallerFinal_PradoVera
 
                     System.Console.WriteLine("Error: {0}", mErrorText);
                 }
-                throw;
+                throw new DAL.Excepciones.ErrorDeConexion();
             }
         }
         /// <summary>
@@ -108,7 +108,7 @@ namespace TallerFinal_PradoVera
             if (response.Count >= 1)
             {
                 if (response[0].response.error != "0")
-                    throw new DAL.Excepciones.ErrorAlBlanquearPin(response[0].response.error-description);
+                    throw new DAL.Excepciones.ErrorAlBlanquearPin(response[0].response["error-description"].ToString());
             }
             else
                 throw new DAL.Excepciones.ErrorAlBlanquearPin("Error irrecuperable");
@@ -116,12 +116,38 @@ namespace TallerFinal_PradoVera
 
         public double SaldoCC(string pDni)
         {
-            throw new NotImplementedException();
+            string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/account-balance?id=" + pDni;
+            dynamic response = GetResponse(url);
+            if (response.Count >= 1)//Si hay respuesta
+            {
+                return response[0].response.balance;
+            }
+            else
+            {
+                throw new DAL.Excepciones.ErrorAlConsultarSaldo();
+            }
         }
 
         public IList<MovimientoDTO> UltimosMovimientos(string pDni)
         {
-            throw new NotImplementedException();
+            string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/account-movements?id=" + pDni;
+            IList<MovimientoDTO> movimientos = new List<MovimientoDTO>();
+
+            dynamic response = GetResponse(url);
+
+            if (response.Count >= 1)
+            {
+                for (int i = 0; i < response[0].response.movements.Count; i++)
+                {
+                    MovimientoDTO mov = new MovimientoDTO();
+                    mov.Fecha = response[0].response.movements[i].date;
+                    mov.Monto = response[0].response.movements[i].ammount;
+
+                    movimientos.Add(mov);
+                }
+                System.Console.WriteLine("Item completo -> {0}", response[0].response);
+            }
+            return movimientos;
         }
     }
 }

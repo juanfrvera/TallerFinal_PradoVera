@@ -63,21 +63,33 @@ namespace TallerFinal_PradoVera.InterfazUsuario
 
         private void buttonBlanquear_Click(object sender, EventArgs e)
         {
-            try
+            ProductoDTO tarjeta = productos[tarjetaSeleccionada];
+            if (MessageBox.Show("Está seguro de blanquear el PIN de la tarjeta \""+tarjeta.Nombre+"\"?", "Blanquear PIN",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
-                Program.BlanquearPin(productos[tarjetaSeleccionada].Numero);
-                MessageBox.Show("El PIN de la tarjeta " + productos[tarjetaSeleccionada].Nombre + " ha sido blanqueado.");
-                this.Hide();
+                try
+                {
+                
+                    Program.BlanquearPin(tarjeta.Numero);
+                    MessageBox.Show("El PIN de la tarjeta " + tarjeta.Nombre + " ha sido blanqueado.");
+                    this.Hide();
+                }
+                catch (DAL.Excepciones.ErrorAlBlanquearPin exc)
+                {
+                    MessageBox.Show("Ha ocurrido un error al intentar blanquear el PIN, por favor llame a un operador."+
+                        Environment.NewLine+"Descripción de error: "+exc.descripcion);
+                }
+                catch (DAL.Excepciones.ErrorDeConexion)
+                {
+                    MessageBox.Show("Hubo un error de conexión, por favor intente de nuevo más tarde.");
+                }
+                catch (Exception exc2)
+                {
+                    MessageBox.Show("Hubo un error inesperado, por favor informe a un operador." +
+                        Environment.NewLine + "Codigo de error: " + exc2.HResult.ToString());
+                }
             }
-            catch (DAL.Excepciones.ErrorAlBlanquearPin exc)
-            {
-                MessageBox.Show("Ha ocurrido un error al intentar blanquear el PIN, por favor llame a un operador."+
-                    Environment.NewLine+"Descripción de error: "+exc.descripcion);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
     }
 }

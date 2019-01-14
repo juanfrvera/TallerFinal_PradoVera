@@ -33,6 +33,7 @@
             this.labelClave = new System.Windows.Forms.Label();
             this.textBoxClave = new System.Windows.Forms.TextBox();
             this.buttonIngresar = new System.Windows.Forms.Button();
+            this.labelIngresando = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelDni
@@ -73,6 +74,7 @@
             this.textBoxClave.PasswordChar = '*';
             this.textBoxClave.Size = new System.Drawing.Size(293, 38);
             this.textBoxClave.TabIndex = 3;
+            this.textBoxClave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxClave_KeyDown);
             this.textBoxClave.MouseEnter += new System.EventHandler(this.ClaveToolTip);
             // 
             // buttonIngresar
@@ -86,11 +88,24 @@
             this.buttonIngresar.UseVisualStyleBackColor = true;
             this.buttonIngresar.Click += new System.EventHandler(this.buttonIngresar_Click);
             // 
+            // labelIngresando
+            // 
+            this.labelIngresando.AutoSize = true;
+            this.labelIngresando.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelIngresando.ForeColor = System.Drawing.Color.Green;
+            this.labelIngresando.Location = new System.Drawing.Point(207, 403);
+            this.labelIngresando.Name = "labelIngresando";
+            this.labelIngresando.Size = new System.Drawing.Size(85, 16);
+            this.labelIngresando.TabIndex = 5;
+            this.labelIngresando.Text = "Ingresando...";
+            this.labelIngresando.Visible = false;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 461);
+            this.Controls.Add(this.labelIngresando);
             this.Controls.Add(this.buttonIngresar);
             this.Controls.Add(this.textBoxClave);
             this.Controls.Add(this.labelClave);
@@ -110,6 +125,7 @@
         private System.Windows.Forms.Label labelClave;
         private System.Windows.Forms.TextBox textBoxClave;
         private System.Windows.Forms.Button buttonIngresar;
+        private System.Windows.Forms.Label labelIngresando;
     }
 }
 
