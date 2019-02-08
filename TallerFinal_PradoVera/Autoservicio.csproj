@@ -33,10 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,11 +58,17 @@
   <ItemGroup>
     <Compile Include="Adaptador.cs" />
     <Compile Include="Controlador.cs" />
+    <Compile Include="DAL\EntityFramework\OperacionDbContext.cs" />
+    <Compile Include="DAL\EntityFramework\Repositorio.cs" />
+    <Compile Include="DAL\EntityFramework\RepositorioOperaciones.cs" />
     <Compile Include="DAL\Excepciones.cs" />
     <Compile Include="DAL\IO\ClienteDTO.cs" />
     <Compile Include="DAL\IO\MovimientoDTO.cs" />
     <Compile Include="DAL\IO\OperacionDTO.cs" />
     <Compile Include="DAL\IO\ProductoDTO.cs" />
+    <Compile Include="DAL\IRepositorio.cs" />
+    <Compile Include="DAL\IRepositorioOperaciones.cs" />
+    <Compile Include="Dominio\Operacion.cs" />
     <Compile Include="InterfazUsuario\BlanqueoPIN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,10 +129,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dominio\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
