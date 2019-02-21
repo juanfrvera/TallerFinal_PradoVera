@@ -77,6 +77,7 @@
             this.Controls.Add(this.listView1);
             this.Name = "UltimosMovimientos";
             this.Text = "UltimosMovimientos";
+            this.Click += new System.EventHandler(this.ClickEnVentana);
             this.ResumeLayout(false);
 
         }

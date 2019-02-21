@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelNombre = new System.Windows.Forms.Label();
             this.buttonBlanqueo = new System.Windows.Forms.Button();
             this.buttonCerrarSesion = new System.Windows.Forms.Button();
@@ -35,6 +36,7 @@
             this.labelSinTarjetas = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // labelNombre
@@ -96,7 +98,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Saldo de cuenta corriente";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.balance_Click);
             // 
             // button2
             // 
@@ -106,7 +108,12 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "Últimos movimientos";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.ultimosMov_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 5000;
+            this.timer1.Tick += new System.EventHandler(this.Desconectar);
             // 
             // Operaciones
             // 
@@ -123,6 +130,7 @@
             this.Controls.Add(this.labelNombre);
             this.Name = "Operaciones";
             this.Text = "Operaciones";
+            this.Click += new System.EventHandler(this.ClickEnVentana);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,5 +145,6 @@
         private System.Windows.Forms.Label labelSinTarjetas;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Timer timer1;
     }
 }

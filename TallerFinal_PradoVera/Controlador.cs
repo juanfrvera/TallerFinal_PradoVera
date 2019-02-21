@@ -1,20 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Autoservicio.IO;
+using TallerFinal_PradoVera.DAL;
+using TallerFinal_PradoVera.DAL.EntityFramework;
+
 
 namespace TallerFinal_PradoVera
 {
     class Controlador
     {
         private IServicios iAdaptador;
+        private IRepositorioOperaciones iRepOperaciones;
+
         private string iDNIActual;
+        private uint ultimoIDOperacion;
 
         public Controlador()
         {
             iAdaptador = new Adaptador();
+            iRepOperaciones = new RepositorioOperaciones();
+
+            #region Obtener ultimo id de operacion
+            if (iRepOperaciones.Count() > 0)
+                ultimoIDOperacion = (uint)iRepOperaciones.ObtenerTodos().Max(e => e.Id);
+            else
+                ultimoIDOperacion = 0;
+            #endregion
         }
         /// <summary>
         /// Si el cliente no es encontrado se arroja una NullReferenceException
@@ -50,5 +63,18 @@ namespace TallerFinal_PradoVera
             return iAdaptador.UltimosMovimientos(iDNIActual);
         }
         #endregion
+        public void RegistrarOperacion(string pDescripcion, TimeSpan pTiempo)
+        {
+            try
+            {
+                int nuevoIdOperacion = (int)ultimoIDOperacion + 1;
+                iRepOperaciones.Agregar(new Dominio.Operacion(nuevoIdOperacion, iDNIActual, pDescripcion, pTiempo));
+                //Se hace de esta forma para que no se incremente el ultimoID si llega a fallar la linea de arriba
+                ultimoIDOperacion = (uint)nuevoIdOperacion;
+            }
+            catch (Exception)//No hay throw para que no se interrumpa el flujo de operacion
+            {
+            }
+        }
     }
 }

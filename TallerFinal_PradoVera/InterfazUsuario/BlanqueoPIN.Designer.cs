@@ -105,6 +105,9 @@
             this.Name = "BlanqueoPIN";
             this.ShowInTaskbar = false;
             this.Text = "Blanqueo de PIN";
+            this.Activated += new System.EventHandler(this.FormActivated);
+            this.Deactivate += new System.EventHandler(this.FormDeactivate);
+            this.Click += new System.EventHandler(this.ClickEnVentana);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

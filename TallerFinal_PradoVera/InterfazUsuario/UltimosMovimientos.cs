@@ -33,7 +33,13 @@ namespace TallerFinal_PradoVera.InterfazUsuario
         }
         private void buttonVolver_Click(object sender, EventArgs e)
         {
+            Operaciones.AccionRealizada();
             this.Hide();
+        }
+
+        private void ClickEnVentana(object sender, EventArgs e)
+        {
+            Operaciones.AccionRealizada();
         }
     }
 }

@@ -11,14 +11,15 @@ using System.Windows.Forms;
 
 namespace TallerFinal_PradoVera.InterfazUsuario
 {
-
     public partial class BlanqueoPIN : Form
     {
         //Cantidad de productos que seran mostrados al cliente, si la cantidad de productos
         //que el cliente tiene supera esta cantidad, se mostrara un boton "Mostrar mas"
-        uint muestrasMaximas = 3;
-        int tarjetaSeleccionada = 0;
-        IList<ProductoDTO> productos;
+        private uint muestrasMaximas = 3;
+        private int tarjetaSeleccionada = 0;
+        private IList<ProductoDTO> productos;
+
+        private DateTime horaEntrada;
 
         public BlanqueoPIN(IList<ProductoDTO> productos)
         {
@@ -53,16 +54,19 @@ namespace TallerFinal_PradoVera.InterfazUsuario
 
         private void Rad_CheckedChanged(object sender, EventArgs e)
         {
+            Operaciones.AccionRealizada();
             tarjetaSeleccionada = int.Parse(((RadioButton)sender).Tag.ToString());
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
+            Operaciones.AccionRealizada();
             this.Hide();
         }
 
         private void buttonBlanquear_Click(object sender, EventArgs e)
         {
+            Operaciones.AccionRealizada();
             ProductoDTO tarjeta = productos[tarjetaSeleccionada];
             if (MessageBox.Show("Está seguro de blanquear el PIN de la tarjeta \""+tarjeta.Nombre+"\"?", "Blanquear PIN",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
@@ -90,6 +94,22 @@ namespace TallerFinal_PradoVera.InterfazUsuario
                 }
             }
 
+        }
+
+        private void ClickEnVentana(object sender, EventArgs e)
+        {
+            Operaciones.AccionRealizada();
+        }
+
+        private void FormActivated(object sender, EventArgs e)
+        {
+            horaEntrada = DateTime.Now;
+        }
+
+        private void FormDeactivate(object sender, EventArgs e)
+        {
+            TimeSpan tiempo = DateTime.Now - horaEntrada;
+            Program.RegistrarOperacion("BlanqueoPIN", tiempo);
         }
     }
 }

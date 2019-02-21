@@ -55,6 +55,13 @@ namespace TallerFinal_PradoVera
         {
             return controlador.UltimosMovimientos();
         }
+
+
+        public static void RegistrarOperacion(string pDescripcion, TimeSpan pTiempo)
+        {
+            controlador.RegistrarOperacion(pDescripcion, pTiempo);
+        }
+
         /// <summary>
         /// Cierra la sesion de un cliente y abre la ventana 
         /// de Login para que uno nuevo pueda entrar

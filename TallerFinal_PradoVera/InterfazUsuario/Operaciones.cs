@@ -19,6 +19,7 @@ namespace TallerFinal_PradoVera.InterfazUsuario
         //Se guarda la lista de productos para no tener que consultar varias veces
         private IList<ProductoDTO> productos;
 
+        private static Timer timer;
 
         public Operaciones(string nombreCliente)
         {
@@ -43,34 +44,56 @@ namespace TallerFinal_PradoVera.InterfazUsuario
                 MessageBox.Show("Hubo un error inesperado, por favor informe a un operador." +
                     Environment.NewLine + "Codigo de error: " + exc.HResult.ToString());
             }
+            timer = timer1;
+            timer1.Start();
         }
 
         private void buttonBlanqueo_Click(object sender, EventArgs e)
         {
+            Operaciones.AccionRealizada();
             if (blanqueoPIN == null)
                 blanqueoPIN = new BlanqueoPIN(productos);
 
-            blanqueoPIN.Show();
+            blanqueoPIN.ShowDialog();
+        }
+        private void ultimosMov_Click(object sender, EventArgs e)
+        {
+            Operaciones.AccionRealizada();
+            if (ultimosMovimientos == null)
+                ultimosMovimientos = new UltimosMovimientos(Program.UltimosMovimientos());
+
+            ultimosMovimientos.ShowDialog();
         }
 
+        private void CerrarSesion()
+        {
+            Program.CerrarSesion();
+            this.Close();
+        }
+        
         private void buttonCerrarSesion_Click(object sender, EventArgs e)
         {
             //Si el usuario presiona 'OK' en el mensaje mostrado, se cierra la aplicacion
             if (MessageBox.Show("Está seguro de cerrar la sesión actual?", "Cerrar sesión",
                 MessageBoxButtons.OKCancel,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
-                Program.CerrarSesion();
-                this.Close();
+                CerrarSesion();
             }
+            else
+                Operaciones.AccionRealizada();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void balance_Click(object sender, EventArgs e)
         {
+            Operaciones.AccionRealizada();
             try
             {
                 double balance = Program.SaldoCC();
-                MessageBox.Show("El saldo de su cuenta corriente es: $" + balance.ToString(),"Saldo",
-                    MessageBoxButtons.OK,MessageBoxIcon.Information);
+                if(MessageBox.Show("El saldo de su cuenta corriente es: $" + balance.ToString(),"Saldo",
+                    MessageBoxButtons.OK,MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    Operaciones.AccionRealizada();
+                }
             }
             catch (DAL.Excepciones.ErrorAlConsultarSaldo)
             {
@@ -87,12 +110,23 @@ namespace TallerFinal_PradoVera.InterfazUsuario
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        public static void AccionRealizada()
         {
-            if (ultimosMovimientos == null)
-                ultimosMovimientos = new UltimosMovimientos(Program.UltimosMovimientos());
+            timer.Stop();
+            timer.Start();
+        }
 
-            ultimosMovimientos.Show();
+        /// <summary>
+        /// Este metodo se ejecuta cuando pasan 60 segundos sin actividad
+        /// Es llamado por el timer
+        /// </summary>
+        private void Desconectar(object sender, EventArgs e)
+        {
+            CerrarSesion();
+        }
+        private void ClickEnVentana(object sender, EventArgs e)
+        {
+            Operaciones.AccionRealizada();
         }
     }
 }

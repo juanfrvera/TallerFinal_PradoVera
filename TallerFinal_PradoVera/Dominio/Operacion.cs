@@ -11,6 +11,7 @@ namespace TallerFinal_PradoVera.Dominio
 
         //Atributos
         private int id;
+        private string dniCliente;
         private String descripcion;
         private TimeSpan tiempo;
 
@@ -21,6 +22,11 @@ namespace TallerFinal_PradoVera.Dominio
             set { id = value; }
         }
 
+        public string DNICliente
+        {
+            get { return dniCliente; }
+            set { dniCliente = value; }
+        }
 
         public String Descripcion
         {
@@ -36,9 +42,10 @@ namespace TallerFinal_PradoVera.Dominio
         }
 
         //Constructor
-        public Operacion(int pId, string pDescripcion, TimeSpan pTiempo)
+        public Operacion(int pId, string pDNICliente, string pDescripcion, TimeSpan pTiempo)
         {
             this.Id = pId;
+            this.DNICliente = pDNICliente;
             this.Descripcion = pDescripcion;
             this.Tiempo = pTiempo;
         }
