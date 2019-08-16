@@ -72,6 +72,7 @@ namespace TallerFinal_PradoVera
 				/// </summary>
 				public static void CerrarSesion()
 				{
+						controlador.GuardarCambios();
 						login.Show();
 				}
 		}

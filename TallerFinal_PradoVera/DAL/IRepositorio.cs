@@ -9,6 +9,6 @@ namespace TallerFinal_PradoVera.DAL
         TEntity Obtener(int pId);
         IEnumerable<TEntity> ObtenerTodos();
         int Count();
-        void SaveChanges();
+        void GuardarCambios();
     }
 }

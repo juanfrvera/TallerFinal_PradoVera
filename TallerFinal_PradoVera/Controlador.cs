@@ -91,5 +91,17 @@ namespace TallerFinal_PradoVera
 								throw e;
 						}
 				}
+
+				public void GuardarCambios()
+				{
+						try
+						{
+								iRepOperaciones.GuardarCambios();
+						}
+						catch (Exception)
+						{
+								throw;
+						}
+				}
 		}
 }

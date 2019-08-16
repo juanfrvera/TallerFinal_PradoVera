@@ -38,7 +38,7 @@ namespace TallerFinal_PradoVera.DAL.EntityFramework
 						return iDbContext.Operacion.Count();
 				}
 
-				public void SaveChanges()
+				public void GuardarCambios()
 				{
 						iDbContext.SaveChanges();
 				}
