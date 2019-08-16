@@ -75,11 +75,11 @@
     <Compile Include="InterfazUsuario\BlanqueoPIN.Designer.cs">
       <DependentUpon>BlanqueoPIN.cs</DependentUpon>
     </Compile>
-    <Compile Include="InterfazUsuario\Login.cs">
+    <Compile Include="InterfazUsuario\Ingreso.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InterfazUsuario\Login.Designer.cs">
-      <DependentUpon>Login.cs</DependentUpon>
+    <Compile Include="InterfazUsuario\Ingreso.Designer.cs">
+      <DependentUpon>Ingreso.cs</DependentUpon>
     </Compile>
     <Compile Include="InterfazUsuario\Operaciones.cs">
       <SubType>Form</SubType>
@@ -99,8 +99,8 @@
     <EmbeddedResource Include="InterfazUsuario\BlanqueoPIN.resx">
       <DependentUpon>BlanqueoPIN.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InterfazUsuario\Login.resx">
-      <DependentUpon>Login.cs</DependentUpon>
+    <EmbeddedResource Include="InterfazUsuario\Ingreso.resx">
+      <DependentUpon>Ingreso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InterfazUsuario\Operaciones.resx">
       <DependentUpon>Operaciones.cs</DependentUpon>

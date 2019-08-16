@@ -1,153 +1,151 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using Autoservicio.IO;
 using Newtonsoft.Json;
 
 namespace TallerFinal_PradoVera
 {
-    class Adaptador : IServicios
-    {
-        private dynamic GetResponse(string url)
-        {
-            // Se crea el request http
-            HttpWebRequest mRequest = (HttpWebRequest)WebRequest.Create(url);
-            try
-            {
-                // Se ejecuta la consulta
-                WebResponse mResponse = mRequest.GetResponse();
+		class Adaptador : IServicios
+		{
+				private dynamic ObtenerRespuesta(string url)
+				{
+						// Se crea el request http
+						HttpWebRequest mRequest = (HttpWebRequest)WebRequest.Create(url);
+						try
+						{
+								// Se ejecuta la consulta
+								WebResponse mResponse = mRequest.GetResponse();
 
-                // Se obtiene los datos de respuesta
-                using (Stream responseStream = mResponse.GetResponseStream())
-                {
-                    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+								// Se obtiene los datos de respuesta
+								using (Stream responseStream = mResponse.GetResponseStream())
+								{
+										StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
 
-                    // Se parsea la respuesta y se serializa a JSON a un objeto dynamic
-                    return JsonConvert.DeserializeObject(reader.ReadToEnd());
-                }
-            }
-            catch (WebException ex)
-            {
-                WebResponse mErrorResponse = ex.Response;
-                using (Stream mResponseStream = mErrorResponse.GetResponseStream())
-                {
-                    StreamReader mReader = new StreamReader(mResponseStream, Encoding.GetEncoding("utf-8"));
-                    String mErrorText = mReader.ReadToEnd();
+										// Se parsea la respuesta y se serializa a JSON a un objeto dynamic
+										return JsonConvert.DeserializeObject(reader.ReadToEnd());
+								}
+						}
+						catch (WebException ex)
+						{
+								WebResponse mErrorResponse = ex.Response;
+								using (Stream mResponseStream = mErrorResponse.GetResponseStream())
+								{
+										StreamReader mReader = new StreamReader(mResponseStream, Encoding.GetEncoding("utf-8"));
+										String mErrorText = mReader.ReadToEnd();
 
-                    System.Console.WriteLine("Error: {0}", mErrorText);
-                }
-                throw new DAL.Excepciones.ErrorDeConexion();
-            }
-        }
-        /// <summary>
-        /// Servicio 1
-        /// </summary>
-        /// <param name="pDni"></param>
-        /// <param name="pClave"></param>
-        /// <returns></returns>
-        public ClienteDTO ValidarCliente(string pDni, string pClave)
-        {
-            ClienteDTO dTO = new ClienteDTO();
-            var mUrl = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/clients?id=" + pDni + "&pass=" + pClave;
-            dynamic response = GetResponse(mUrl);
-            
-            if (response.Count >= 1)
-            {
-                System.Console.WriteLine("Item completo -> {0}", response[0].response);
+										System.Console.WriteLine("Error: {0}", mErrorText);
+								}
+								throw new DAL.Excepciones.ErrorDeConexion();
+						}
+				}
+				/// <summary>
+				/// Servicio 1
+				/// </summary>
+				/// <param name="pDni"></param>
+				/// <param name="pClave"></param>
+				/// <returns></returns>
+				public ClienteDTO ValidarCliente(string pDni, string pClave)
+				{
+						ClienteDTO dTO = new ClienteDTO();
+						var mUrl = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/clients?id=" + pDni + "&pass=" + pClave;
+						dynamic response = ObtenerRespuesta(mUrl);
 
-                dTO.Id = response[0].id;
-                dTO.Clave = pClave;
-                dTO.Nombre = response[0].response.client.name;
-                dTO.Categoria = response[0].response.client.segment;
+						if (response.Count >= 1)
+						{
+								System.Console.WriteLine("Item completo -> {0}", response[0].response);
 
-                return dTO;
-            }
-            else
-                throw new DAL.Excepciones.ClienteNoEncontrado();
+								dTO.Id = response[0].id;
+								dTO.Clave = pClave;
+								dTO.Nombre = response[0].response.client.name;
+								dTO.Categoria = response[0].response.client.segment;
 
-        }
-        public IList<ProductoDTO> ObtenerProductos(string pDni)
-        {
-            IList<ProductoDTO> productos = new List<ProductoDTO>();
-            var mUrl = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/products?id=" + pDni;
+								return dTO;
+						}
+						else
+								throw new DAL.Excepciones.ClienteNoEncontrado();
 
-            dynamic response = GetResponse(mUrl);
+				}
+				public IList<ProductoDTO> ObtenerProductos(string pDni)
+				{
+						IList<ProductoDTO> productos = new List<ProductoDTO>();
+						var mUrl = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/products?id=" + pDni;
 
-            if (response.Count >= 1)
-            {
-                for (int i = 0; i < response[0].response.product.Count; i++)
-                {
-                    ProductoDTO prod = new ProductoDTO();
-                    prod.Numero = response[0].response.product[i].number;
-                    prod.Nombre = response[0].response.product[i].name;
-                    prod.Tipo = response[0].response.product[i].type;
+						dynamic response = ObtenerRespuesta(mUrl);
 
-                    productos.Add(prod);
-                }
-                System.Console.WriteLine("Item completo -> {0}", response[0].response);
+						if (response.Count >= 1)
+						{
+								for (int i = 0; i < response[0].response.product.Count; i++)
+								{
+										ProductoDTO prod = new ProductoDTO();
+										prod.Numero = response[0].response.product[i].number;
+										prod.Nombre = response[0].response.product[i].name;
+										prod.Tipo = response[0].response.product[i].type;
 
-                return productos;
-            }
-            else
-                throw new DAL.Excepciones.ClienteNoTieneProductos();
-        }
+										productos.Add(prod);
+								}
+								System.Console.WriteLine("Item completo -> {0}", response[0].response);
 
-        /// <summary>
-        /// Servicio 3, Blanquea el pin de una tarjeta del cliente actual
-        /// </summary>
-        /// <param name="pNumeroTarjeta"></param>
-        /// <returns></returns>
-        public void BlanquearPin(string pNumeroTarjeta)
-        {
-            string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/product-reset?number=" + pNumeroTarjeta;
-            dynamic response = GetResponse(url);
-            if (response.Count >= 1)
-            {
-                if (response[0].response.error != "0")
-                    throw new DAL.Excepciones.ErrorAlBlanquearPin(response[0].response["error-description"].ToString());
-            }
-            else
-                throw new DAL.Excepciones.ErrorAlBlanquearPin("Error irrecuperable");
-        }
+								return productos;
+						}
+						else
+								throw new DAL.Excepciones.ClienteNoTieneProductos();
+				}
 
-        public double SaldoCC(string pDni)
-        {
-            string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/account-balance?id=" + pDni;
-            dynamic response = GetResponse(url);
-            if (response.Count >= 1)//Si hay respuesta
-            {
-                return response[0].response.balance;
-            }
-            else
-            {
-                throw new DAL.Excepciones.ErrorAlConsultarSaldo();
-            }
-        }
+				/// <summary>
+				/// Servicio 3, Blanquea el pin de una tarjeta del cliente actual
+				/// </summary>
+				/// <param name="pNumeroTarjeta"></param>
+				/// <returns></returns>
+				public void BlanquearPin(string pNumeroTarjeta)
+				{
+						string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/product-reset?number=" + pNumeroTarjeta;
+						dynamic response = ObtenerRespuesta(url);
+						if (response.Count >= 1)
+						{
+								if (response[0].response.error != "0")
+										throw new DAL.Excepciones.ErrorAlBlanquearPin(response[0].response["error-description"].ToString());
+						}
+						else
+								throw new DAL.Excepciones.ErrorAlBlanquearPin("Error irrecuperable");
+				}
 
-        public IList<MovimientoDTO> UltimosMovimientos(string pDni)
-        {
-            string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/account-movements?id=" + pDni;
-            IList<MovimientoDTO> movimientos = new List<MovimientoDTO>();
+				public double SaldoCC(string pDni)
+				{
+						string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/account-balance?id=" + pDni;
+						dynamic response = ObtenerRespuesta(url);
+						if (response.Count >= 1)//Si hay respuesta
+						{
+								return response[0].response.balance;
+						}
+						else
+						{
+								throw new DAL.Excepciones.ErrorAlConsultarSaldo();
+						}
+				}
 
-            dynamic response = GetResponse(url);
+				public IList<MovimientoDTO> UltimosMovimientos(string pDni)
+				{
+						string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/account-movements?id=" + pDni;
+						IList<MovimientoDTO> movimientos = new List<MovimientoDTO>();
 
-            if (response.Count >= 1)
-            {
-                for (int i = 0; i < response[0].response.movements.Count; i++)
-                {
-                    MovimientoDTO mov = new MovimientoDTO();
-                    mov.Fecha = response[0].response.movements[i].date;
-                    mov.Monto = response[0].response.movements[i].ammount;
+						dynamic response = ObtenerRespuesta(url);
 
-                    movimientos.Add(mov);
-                }
-                System.Console.WriteLine("Item completo -> {0}", response[0].response);
-            }
-            return movimientos;
-        }
-    }
+						if (response.Count >= 1)
+						{
+								for (int i = 0; i < response[0].response.movements.Count; i++)
+								{
+										MovimientoDTO mov = new MovimientoDTO();
+										mov.Fecha = response[0].response.movements[i].date;
+										mov.Monto = response[0].response.movements[i].ammount;
+
+										movimientos.Add(mov);
+								}
+								System.Console.WriteLine("Item completo -> {0}", response[0].response);
+						}
+						return movimientos;
+				}
+		}
 }

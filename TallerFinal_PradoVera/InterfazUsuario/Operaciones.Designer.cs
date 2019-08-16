@@ -112,7 +112,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 5000;
+            this.timer1.Interval = 60000;
             this.timer1.Tick += new System.EventHandler(this.Desconectar);
             // 
             // Operaciones

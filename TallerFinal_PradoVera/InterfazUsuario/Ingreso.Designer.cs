@@ -1,6 +1,6 @@
 ﻿namespace TallerFinal_PradoVera
 {
-    partial class Login
+    partial class Ingreso
     {
         /// <summary>
         /// Required designer variable.
