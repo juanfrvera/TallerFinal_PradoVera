@@ -8,6 +8,7 @@ namespace TallerFinal_PradoVera
 		static class Program
 		{
 				private static Controlador controlador;
+
 				private static Ingreso login;//Guardamos la referencia para luego abrirlo al cerrar sesion
 
 				/// <summary>
@@ -61,18 +62,12 @@ namespace TallerFinal_PradoVera
 						return controlador.UltimosMovimientos();
 				}
 
-				public static void RegistrarOperacion(string pDescripcion, TimeSpan pTiempo)
-				{
-						controlador.RegistrarOperacion(pDescripcion, pTiempo);
-				}
-
 				/// <summary>
 				/// Cierra la sesion de un cliente y abre la ventana 
 				/// de Login para que uno nuevo pueda entrar
 				/// </summary>
 				public static void CerrarSesion()
 				{
-						controlador.GuardarCambios();
 						login.Show();
 				}
 		}

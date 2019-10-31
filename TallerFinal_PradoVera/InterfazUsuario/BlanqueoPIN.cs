@@ -105,7 +105,7 @@ namespace TallerFinal_PradoVera.InterfazUsuario
 				private void Aceptar()
 				{
 						TimeSpan tiempo = DateTime.Now - horaEntrada;
-						Program.RegistrarOperacion("BlanqueoPIN", tiempo);
+					//	Program.RegistrarOperacion("BlanqueoPIN", tiempo); Corregir esta linea
 						this.Hide();
 				}
 				private void Cancelar()

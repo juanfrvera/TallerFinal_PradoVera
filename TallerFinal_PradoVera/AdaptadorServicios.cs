@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace TallerFinal_PradoVera
 {
-		class Adaptador : IServicios
+		class AdaptadorServicios : IServicios
 		{
 				private dynamic ObtenerRespuesta(string url)
 				{
