@@ -39,12 +39,19 @@ namespace TallerFinal_PradoVera
          catch (WebException ex)
          {
             WebResponse mErrorResponse = ex.Response;
-            using (Stream mResponseStream = mErrorResponse.GetResponseStream())
+            try
             {
-               StreamReader mReader = new StreamReader(mResponseStream, Encoding.GetEncoding("utf-8"));
-               String mErrorText = mReader.ReadToEnd();
+               using (Stream mResponseStream = mErrorResponse.GetResponseStream())
+               {
+                  StreamReader mReader = new StreamReader(mResponseStream, Encoding.GetEncoding("utf-8"));
+                  String mErrorText = mReader.ReadToEnd();
 
-               Console.WriteLine("Error: {0}", mErrorText);
+                  Console.WriteLine("Error: {0}", mErrorText);
+               }
+            }
+            catch (Exception)
+            {
+               throw new DAL.Excepciones.ErrorDeConexion();
             }
             throw new DAL.Excepciones.ErrorDeConexion();
          }

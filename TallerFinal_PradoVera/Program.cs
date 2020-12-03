@@ -9,7 +9,8 @@ namespace TallerFinal_PradoVera
    {
       private static Controlador controlador;
 
-      private static Ingreso login;//Guardamos la referencia para luego abrirlo al cerrar sesion
+      // Guardamos la referencia para luego abrirlo al cerrar sesion
+      private static Ingreso login;
 
       /// <summary>
       /// The main entry point for the application.
@@ -17,8 +18,9 @@ namespace TallerFinal_PradoVera
       [STAThread]
       static void Main()
       {
+         // Debe ser llamado antes de crear cualquier ventana
          Application.EnableVisualStyles();
-         Application.SetCompatibleTextRenderingDefault(false);//Debe ser llamado antes de crear cualquier ventana
+         Application.SetCompatibleTextRenderingDefault(false);
 
          controlador = new Controlador();
          login = new Ingreso();
@@ -36,12 +38,13 @@ namespace TallerFinal_PradoVera
          try
          {
             ClienteDTO cliente = controlador.Login(pDni, pClave);
-            //Crea la ventana y la muestra pero no guarda una referencia hacia ella
+            // Crea la ventana y la muestra pero no guarda una referencia hacia ella
             (new InterfazUsuario.Operaciones(cliente.Nombre)).Show();
          }
          catch (DAL.Excepciones.ClienteNoEncontrado)
          {
-            throw;//Tirar la excepción para que sea agarrada por la ventana que quizo ingresar
+            // Tirar la excepción para que sea agarrada por la ventana que quizo ingresar
+            throw;
          }
       }
       public static IList<ProductoDTO> ObtenerProductos()
