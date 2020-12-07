@@ -8,21 +8,28 @@ namespace TallerFinal_PradoVera.InterfazUsuario
 {
    public partial class BlanqueoPIN : Form
    {
+      private string iDniActual;
+
       // Cantidad de productos que seran mostrados al cliente, si la cantidad de productos
       // que el cliente tiene supera esta cantidad, se mostrara un boton "Mostrar más..."
       private uint muestrasMaximas = 3;
       private int tarjetaSeleccionada = 0;
       private IList<ProductoDTO> productos;
 
-      public BlanqueoPIN(IList<ProductoDTO> productos)
+      public BlanqueoPIN(string pDni, IList<ProductoDTO> productos)
       {
          InitializeComponent();
          this.CenterToScreen();
+       
+         this.iDniActual = pDni;
+
          CargarProductos(productos);
       }
+
       private void CargarProductos(IList<ProductoDTO> productos)
       {
          this.productos = productos;
+
          // Hay uno ya creado porque se asume que la lista de productos al menos tiene uno
          radioButton1.Text = productos[0].Nombre;
          int x = radioButton1.Location.X;
@@ -72,14 +79,14 @@ namespace TallerFinal_PradoVera.InterfazUsuario
             try
             {
 
-               Program.BlanquearPin(tarjeta.Numero);
+               Program.BlanquearPin(iDniActual, tarjeta.Numero);
                MessageBox.Show("El PIN de la tarjeta " + tarjeta.Nombre + " ha sido blanqueado.", "Blanqueo de PIN",
                   MessageBoxButtons.OK, MessageBoxIcon.Information);
                Aceptar();
             }
             catch (DAL.Excepciones.ErrorAlBlanquearPin exc)
             {
-               MessageBox.Show("Ha ocurrido un error al intentar blanquear el PIN, por favor llame a un operador." +
+               MessageBox.Show("Ha ocurrido un error al intentar blanquear el PIN." +
                            Environment.NewLine + "Descripción de error: " + exc.descripcion, "Error",
                            MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

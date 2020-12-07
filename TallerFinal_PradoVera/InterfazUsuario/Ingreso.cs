@@ -39,7 +39,7 @@ namespace TallerFinal_PradoVera
             var cliente = Program.Ingresar(textBoxDNI.Text, textBoxClave.Text);
 
             // Crear y mostrar ventana de operaciones
-            (new InterfazUsuario.Operaciones(cliente.Nombre)).Show();
+            (new InterfazUsuario.Operaciones(cliente.Dni, cliente.Nombre)).Show();
 
             this.Hide();//Se cierra pues no hubo excepcion
                         //Se usa Hide() porque al usar Close() y no haber otro Form abierto, se cierra la app

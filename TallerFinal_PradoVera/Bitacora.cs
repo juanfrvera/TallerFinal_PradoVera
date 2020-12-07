@@ -6,13 +6,13 @@ using TallerFinal_PradoVera.DAL.EntityFramework;
 
 namespace TallerFinal_PradoVera
 {
-   public class Vitacora
+   public class Bitacora
    {
       private IRepositorioOperaciones iRepOperaciones;
 
       private uint iUltimoIDOperacion;
 
-      public Vitacora()
+      public Bitacora()
       {
          iRepOperaciones = new RepositorioRegistroDeOperaciones();
 

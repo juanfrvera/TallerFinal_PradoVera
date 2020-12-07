@@ -42,22 +42,22 @@ namespace TallerFinal_PradoVera
       {
          return controlador.Login(pDni, pClave);
       }
-      public static IList<ProductoDTO> ObtenerProductos()
+      public static IList<ProductoDTO> ObtenerProductos(string pDni)
       {
-         return controlador.ObtenerProductos();
+         return controlador.ObtenerProductos(pDni);
       }
 
-      public static void BlanquearPin(string numeroTarjeta)
+      public static void BlanquearPin(string pDni, string pNumeroTarjeta)
       {
-         controlador.BlanquearPin(numeroTarjeta);
+         controlador.BlanquearPin(pDni, pNumeroTarjeta);
       }
-      public static double SaldoCC()
+      public static double SaldoCC(string pDni)
       {
-         return controlador.SaldoCC();
+         return controlador.SaldoCC(pDni);
       }
-      public static IList<MovimientoDTO> UltimosMovimientos()
+      public static IList<MovimientoDTO> UltimosMovimientos(string pDni)
       {
-         return controlador.UltimosMovimientos();
+         return controlador.UltimosMovimientos(pDni);
       }
 
       /// <summary>

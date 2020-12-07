@@ -99,7 +99,7 @@
     <Compile Include="IServicios.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vitacora.cs" />
+    <Compile Include="Bitacora.cs" />
     <EmbeddedResource Include="InterfazUsuario\BlanqueoPIN.resx">
       <DependentUpon>BlanqueoPIN.cs</DependentUpon>
     </EmbeddedResource>

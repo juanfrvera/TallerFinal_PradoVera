@@ -11,17 +11,17 @@ namespace TallerFinal_PradoVera
 {
    class AdaptadorServicios : IServicios
    {
-      private Vitacora iVitacora;
+      private Bitacora iBitacora;
 
       public AdaptadorServicios()
       {
          try
          {
-            iVitacora = new Vitacora();
+            iBitacora = new Bitacora();
          }
          catch (Exception)
          {
-            // No tirar excepción ya que el registrar operaciones en la vitácora es algo
+            // No tirar excepción ya que el registrar operaciones en la bitácora es algo
             // Que no debería parar el flujo de la aplicación en caso de errores
          }
       }
@@ -228,7 +228,7 @@ namespace TallerFinal_PradoVera
          pTimer.Stop();
          try
          {
-            iVitacora.RegistrarOperacion(pDescripcion, pTimer.Elapsed, pDni);
+            iBitacora.RegistrarOperacion(pDescripcion, pTimer.Elapsed, pDni);
          }
          catch (Exception exc)
          {

@@ -7,22 +7,28 @@ namespace TallerFinal_PradoVera.InterfazUsuario
 {
    public partial class Operaciones : Form
    {
-      //Se guarda una referencia para no tener que volver a crearla si se sale y se vuelve a entrar
-      private BlanqueoPIN blanqueoPIN;
-      private UltimosMovimientos ultimosMovimientos;
-      //Se guarda la lista de productos para no tener que consultar varias veces
-      private IList<ProductoDTO> productos;
-
       private static Timer timer;
 
-      public Operaciones(string nombreCliente)
+      private string iDniActual;
+
+      // Se guarda una referencia para no tener que volver a crearla si se sale y se vuelve a entrar
+      private BlanqueoPIN blanqueoPIN;
+      private UltimosMovimientos ultimosMovimientos;
+      
+      // Se guarda la lista de productos para no tener que consultar varias veces
+      private IList<ProductoDTO> productos;
+
+      public Operaciones(string dniCliente, string nombreCliente)
       {
          InitializeComponent();
          labelNombre.Text = "Bienvenido, " + nombreCliente;
          this.CenterToScreen();
+
+         this.iDniActual = dniCliente;
+
          try
          {
-            productos = Program.ObtenerProductos();
+            productos = Program.ObtenerProductos(dniCliente);
          }
          catch (DAL.Excepciones.ClienteNoTieneProductos)
          {
@@ -47,7 +53,7 @@ namespace TallerFinal_PradoVera.InterfazUsuario
          Operaciones.AccionRealizada();
          if (blanqueoPIN == null)
          {
-            blanqueoPIN = new BlanqueoPIN(productos);
+            blanqueoPIN = new BlanqueoPIN(iDniActual, productos);
          }
 
          blanqueoPIN.ShowDialog();
@@ -59,7 +65,7 @@ namespace TallerFinal_PradoVera.InterfazUsuario
          {
             if (ultimosMovimientos == null)
             {
-               ultimosMovimientos = new UltimosMovimientos(Program.UltimosMovimientos());
+               ultimosMovimientos = new UltimosMovimientos(Program.UltimosMovimientos(iDniActual));
             }
             ultimosMovimientos.ShowDialog();
          }
@@ -104,7 +110,7 @@ namespace TallerFinal_PradoVera.InterfazUsuario
          Operaciones.AccionRealizada();
          try
          {
-            double balance = Program.SaldoCC();
+            double balance = Program.SaldoCC(iDniActual);
             if (MessageBox.Show("El saldo de su cuenta corriente es: $" + balance.ToString(), "Saldo",
                 MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
             {
