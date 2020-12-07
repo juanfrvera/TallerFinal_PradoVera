@@ -15,7 +15,15 @@ namespace TallerFinal_PradoVera
 
       public AdaptadorServicios()
       {
-         iVitacora = new Vitacora();
+         try
+         {
+            iVitacora = new Vitacora();
+         }
+         catch (Exception)
+         {
+            // No tirar excepción ya que el registrar operaciones en la vitácora es algo
+            // Que no debería parar el flujo de la aplicación en caso de errores
+         }
       }
 
       private dynamic ObtenerRespuesta(string url)
@@ -77,6 +85,7 @@ namespace TallerFinal_PradoVera
                Console.WriteLine("Item completo -> {0}", response[0].response);
 
                dTO.Id = response[0].id;
+               dTO.Dni = pDni;
                dTO.Clave = pClave;
                dTO.Nombre = response[0].response.client.name;
                dTO.Categoria = response[0].response.client.segment;
@@ -90,8 +99,7 @@ namespace TallerFinal_PradoVera
          }
          finally
          {
-            timer.Stop();
-            iVitacora.RegistrarOperacion("Validar cliente", timer.Elapsed, pDni);
+            RegistrarOperacion("Validar cliente", timer, pDni);
          }
       }
       public IList<ProductoDTO> ObtenerProductos(string pDni)
@@ -126,8 +134,7 @@ namespace TallerFinal_PradoVera
          }
          finally
          {
-            timer.Stop();
-            iVitacora.RegistrarOperacion("Obtener productos", timer.Elapsed, pDni);
+            RegistrarOperacion("Obtener productos", timer, pDni);
          }
       }
 
@@ -158,8 +165,7 @@ namespace TallerFinal_PradoVera
          }
          finally
          {
-            timer.Stop();
-            iVitacora.RegistrarOperacion("Blanquear pin", timer.Elapsed, pDni);
+            RegistrarOperacion("Blanquear pin", timer, pDni);
          }
       }
 
@@ -182,8 +188,7 @@ namespace TallerFinal_PradoVera
          }
          finally
          {
-            timer.Stop();
-            iVitacora.RegistrarOperacion("Saldo CC", timer.Elapsed, pDni);
+            RegistrarOperacion("Saldo CC", timer, pDni);
          }
       }
 
@@ -214,8 +219,22 @@ namespace TallerFinal_PradoVera
          }
          finally
          {
-            timer.Stop();
-            iVitacora.RegistrarOperacion("Últimos movimientos", timer.Elapsed, pDni);
+            RegistrarOperacion("Últimos movimientos", timer, pDni);
+         }
+      }
+
+      private void RegistrarOperacion(string pDescripcion, Stopwatch pTimer, string pDni)
+      {
+         pTimer.Stop();
+         try
+         {
+            iVitacora.RegistrarOperacion(pDescripcion, pTimer.Elapsed, pDni);
+         }
+         catch (Exception exc)
+         {
+            // Las excepciones del registro de operaciones no paran el flujo de la aplicación
+            // Es por eso que no volvemos a hacer un throw aquí
+            Console.WriteLine("Excepción al registrar operación. Codigo de error: " + exc.HResult.ToString());
          }
       }
    }

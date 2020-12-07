@@ -45,7 +45,7 @@ namespace TallerFinal_PradoVera
             // Se hace de esta forma para que no se incremente el ultimoID si llega a fallar la linea de arriba
             iUltimoIDOperacion = (uint)nuevoIdOperacion;
          }
-         catch (Exception e)
+         catch (Exception)
          {
             throw new DAL.Excepciones.ErrorAlRegistrarOperacion();
          }

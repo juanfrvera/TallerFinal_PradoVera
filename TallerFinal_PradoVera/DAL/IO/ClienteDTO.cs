@@ -2,7 +2,7 @@
 
 namespace Autoservicio.IO
 {
-    internal struct ClienteDTO
+    public struct ClienteDTO
     {
         private int id;
 

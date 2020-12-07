@@ -4,7 +4,7 @@ using Autoservicio.IO;
 
 namespace TallerFinal_PradoVera
 {
-   class Controlador
+   public class Controlador
    {
       private IServicios iAdaptadorServicios;
       private string iDniActual;

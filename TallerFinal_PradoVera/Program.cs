@@ -5,12 +5,18 @@ using System.Windows.Forms;
 
 namespace TallerFinal_PradoVera
 {
-   static class Program
+   public static class Program
    {
       private static Controlador controlador;
 
       // Guardamos la referencia para luego abrirlo al cerrar sesion
       private static Ingreso login;
+
+      // Constructor estático
+      static Program()
+      {
+         controlador = new Controlador();
+      }
 
       /// <summary>
       /// The main entry point for the application.
@@ -22,7 +28,6 @@ namespace TallerFinal_PradoVera
          Application.EnableVisualStyles();
          Application.SetCompatibleTextRenderingDefault(false);
 
-         controlador = new Controlador();
          login = new Ingreso();
 
          Application.Run(login);
@@ -33,19 +38,9 @@ namespace TallerFinal_PradoVera
       /// </summary>
       /// <param name="pDni"></param>
       /// <param name="pClave"></param>
-      public static void Ingresar(string pDni, string pClave)
+      public static ClienteDTO Ingresar(string pDni, string pClave)
       {
-         try
-         {
-            ClienteDTO cliente = controlador.Login(pDni, pClave);
-            // Crea la ventana y la muestra pero no guarda una referencia hacia ella
-            (new InterfazUsuario.Operaciones(cliente.Nombre)).Show();
-         }
-         catch (DAL.Excepciones.ClienteNoEncontrado)
-         {
-            // Tirar la excepción para que sea agarrada por la ventana que quizo ingresar
-            throw;
-         }
+         return controlador.Login(pDni, pClave);
       }
       public static IList<ProductoDTO> ObtenerProductos()
       {
