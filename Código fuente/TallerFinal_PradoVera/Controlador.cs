@@ -34,7 +34,6 @@ namespace TallerFinal_PradoVera
       {
          return iAdaptadorServicios.ObtenerProductos(pDni);
       }
-      #region Operaciones de usuario validado
 
       /// <summary>
       /// Blanquea el PIN de la tarjeta cuyo número es el indicado
@@ -65,6 +64,5 @@ namespace TallerFinal_PradoVera
       {
          return iAdaptadorServicios.UltimosMovimientos(pDni);
       }
-      #endregion Operaciones de usuario validado
    }
 }
