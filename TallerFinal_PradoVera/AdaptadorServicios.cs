@@ -19,10 +19,11 @@ namespace TallerFinal_PradoVera
          {
             iBitacora = new Bitacora();
          }
-         catch (Exception)
+         catch (Exception exc)
          {
             // No tirar excepción ya que el registrar operaciones en la bitácora es algo
             // Que no debería parar el flujo de la aplicación en caso de errores
+            Console.WriteLine("Excepción al crear bitácora. Codigo de error: " + exc.HResult.ToString());
          }
       }
 
