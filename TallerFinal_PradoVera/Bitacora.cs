@@ -34,14 +34,17 @@ namespace TallerFinal_PradoVera
       /// <summary>
       /// Registra operación en la base de datos guardando la descripción y el tiempo que se tardó en operar
       /// </summary>
-      /// <param name="pDescripcion"></param>
-      /// <param name="pTiempo"></param>
-      public void RegistrarOperacion(string pDescripcion, TimeSpan pTiempo, string pDniCliente)
+      /// <param name="pDniCliente">DNI del cliente para el cual se realizó la operación</param>
+      /// <param name="pDescripcion">Descripción de la operación</param>
+      /// <param name="pTiempo">Tiempo que llevó realizar la operación</param>
+      /// <param name="pFallida">Verdadero si la operación resultó fallida</param>
+      public void RegistrarOperacion(string pDniCliente, string pDescripcion, TimeSpan pTiempo, bool pFallida)
       {
          try
          {
             int nuevoIdOperacion = (int)iUltimoIDOperacion + 1;
-            iRepOperaciones.Agregar(new Dominio.Operacion(nuevoIdOperacion, pDniCliente, pDescripcion, pTiempo));
+            var nuevaOperacion = new Dominio.Operacion(nuevoIdOperacion, pDniCliente, pDescripcion, pTiempo, pFallida);
+            iRepOperaciones.Agregar(nuevaOperacion);
             // Se hace de esta forma para que no se incremente el ultimoID si llega a fallar la linea de arriba
             iUltimoIDOperacion = (uint)nuevoIdOperacion;
          }

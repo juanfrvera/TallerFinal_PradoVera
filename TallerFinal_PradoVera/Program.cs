@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TallerFinal_PradoVera.DAL.EntityFramework;
 
 namespace TallerFinal_PradoVera
 {
@@ -19,7 +20,7 @@ namespace TallerFinal_PradoVera
       }
 
       /// <summary>
-      /// The main entry point for the application.
+      /// Punto de entrada de la aplicación
       /// </summary>
       [STAThread]
       static void Main()

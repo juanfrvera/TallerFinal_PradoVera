@@ -76,7 +76,13 @@ namespace TallerFinal_PradoVera
          ClienteDTO dTO = new ClienteDTO();
          var mUrl = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/clients?id=" + pDni + "&pass=" + pClave;
 
+         // Empezar el timer para saber cuánto tiempo llevó la operación
          Stopwatch timer = new Stopwatch();
+         timer.Start();
+         
+         // Indicador que pasará a verdadero si ocurre un error
+         bool fallida = false;
+
          try
          {
             dynamic response = ObtenerRespuesta(mUrl);
@@ -98,9 +104,16 @@ namespace TallerFinal_PradoVera
                throw new DAL.Excepciones.ClienteNoEncontrado();
             }
          }
+         catch
+         {
+            fallida = true;
+            
+            // Devolver la misma excepción para que sea tratada por el nivel anterior
+            throw;
+         }
          finally
          {
-            RegistrarOperacion("Validar cliente", timer, pDni);
+            RegistrarOperacion(pDni, "Validar cliente", timer, fallida);
          }
       }
       public IList<ProductoDTO> ObtenerProductos(string pDni)
@@ -108,7 +121,13 @@ namespace TallerFinal_PradoVera
          IList<ProductoDTO> productos = new List<ProductoDTO>();
          var mUrl = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/products?id=" + pDni;
 
+         // Empezar el timer para saber cuánto tiempo llevó la operación
          Stopwatch timer = new Stopwatch();
+         timer.Start();
+
+         // Indicador que pasará a verdadero si ocurre un error
+         bool fallida = false;
+
          try
          {
             dynamic response = ObtenerRespuesta(mUrl);
@@ -133,9 +152,16 @@ namespace TallerFinal_PradoVera
                throw new DAL.Excepciones.ClienteNoTieneProductos();
             }
          }
+         catch
+         {
+            fallida = true;
+
+            // Devolver la misma excepción para que sea tratada por el nivel anterior
+            throw;
+         }
          finally
          {
-            RegistrarOperacion("Obtener productos", timer, pDni);
+            RegistrarOperacion(pDni, "Obtener productos", timer, fallida);
          }
       }
 
@@ -148,7 +174,13 @@ namespace TallerFinal_PradoVera
       {
          string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/product-reset?number=" + pNumeroTarjeta;
 
+         // Empezar el timer para saber cuánto tiempo llevó la operación
          Stopwatch timer = new Stopwatch();
+         timer.Start();
+
+         // Indicador que pasará a verdadero si ocurre un error
+         bool fallida = false;
+
          try
          {
             dynamic response = ObtenerRespuesta(url);
@@ -164,9 +196,16 @@ namespace TallerFinal_PradoVera
                throw new DAL.Excepciones.ErrorAlBlanquearPin("Error irrecuperable");
             }
          }
+         catch
+         {
+            fallida = true;
+
+            // Devolver la misma excepción para que sea tratada por el nivel anterior
+            throw;
+         }
          finally
          {
-            RegistrarOperacion("Blanquear pin", timer, pDni);
+            RegistrarOperacion(pDni, "Blanquear pin", timer, fallida);
          }
       }
 
@@ -174,7 +213,13 @@ namespace TallerFinal_PradoVera
       {
          string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/account-balance?id=" + pDni;
 
+         // Empezar el timer para saber cuánto tiempo llevó la operación
          Stopwatch timer = new Stopwatch();
+         timer.Start();
+
+         // Indicador que pasará a verdadero si ocurre un error
+         bool fallida = false;
+
          try
          {
             dynamic response = ObtenerRespuesta(url);
@@ -187,9 +232,16 @@ namespace TallerFinal_PradoVera
                throw new DAL.Excepciones.ErrorAlConsultarSaldo();
             }
          }
+         catch
+         {
+            fallida = true;
+
+            // Devolver la misma excepción para que sea tratada por el nivel anterior
+            throw;
+         }
          finally
          {
-            RegistrarOperacion("Saldo CC", timer, pDni);
+            RegistrarOperacion(pDni, "Saldo CC", timer, fallida);
          }
       }
 
@@ -198,8 +250,13 @@ namespace TallerFinal_PradoVera
          string url = "https://my-json-server.typicode.com/utn-frcu-isi-tdp/tas-db/account-movements?id=" + pDni;
          IList<MovimientoDTO> movimientos = new List<MovimientoDTO>();
 
-
+         // Empezar el timer para saber cuánto tiempo llevó la operación
          Stopwatch timer = new Stopwatch();
+         timer.Start();
+
+         // Indicador que pasará a verdadero si ocurre un error
+         bool fallida = false;
+
          try
          {
             dynamic response = ObtenerRespuesta(url);
@@ -218,18 +275,25 @@ namespace TallerFinal_PradoVera
             }
             return movimientos;
          }
+         catch
+         {
+            fallida = true;
+
+            // Devolver la misma excepción para que sea tratada por el nivel anterior
+            throw;
+         }
          finally
          {
-            RegistrarOperacion("Últimos movimientos", timer, pDni);
+            RegistrarOperacion(pDni, "Últimos movimientos", timer, fallida);
          }
       }
 
-      private void RegistrarOperacion(string pDescripcion, Stopwatch pTimer, string pDni)
+      private void RegistrarOperacion(string pDni, string pDescripcion, Stopwatch pTimer, bool pFallida)
       {
          pTimer.Stop();
          try
          {
-            iBitacora.RegistrarOperacion(pDescripcion, pTimer.Elapsed, pDni);
+            iBitacora.RegistrarOperacion(pDni, pDescripcion, pTimer.Elapsed, pFallida);
          }
          catch (Exception exc)
          {

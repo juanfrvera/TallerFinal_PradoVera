@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TallerFinal_PradoVera.Dominio
 {
    public class Operacion
    {
 
-      //Atributos
+      // Atributos
       private int id;
       private string dniCliente;
       private String descripcion;
       private TimeSpan tiempo;
+      private bool fallida;
 
-      //Propiedades
+      // Propiedades
       public int Id
       {
          get { return id; }
@@ -41,13 +38,23 @@ namespace TallerFinal_PradoVera.Dominio
          set { tiempo = value; }
       }
 
+      /// <summary>
+      /// Verdadero si esta operación resultó fallida
+      /// </summary>
+      public bool Fallida
+      {
+         get { return fallida; }
+         set { fallida = value;  }
+      }
+
       // Constructor
-      public Operacion(int pId, string pDNICliente, string pDescripcion, TimeSpan pTiempo)
+      public Operacion(int pId, string pDNICliente, string pDescripcion, TimeSpan pTiempo, bool pFallida)
       {
          this.Id = pId;
          this.DNICliente = pDNICliente;
          this.Descripcion = pDescripcion;
          this.Tiempo = pTiempo;
+         this.Fallida = pFallida;
       }
 
       public Operacion() { }
